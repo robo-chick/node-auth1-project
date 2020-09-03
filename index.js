@@ -2,11 +2,11 @@ const express = require("express")
 const helmet = require("helmet")
 const cors = require("cors")
 const session = require("express-session")
-const { decodeBase64 } = require("bcryptjs")
+const db = require("./data/config")
 const KnexSessionStore = require("connect-session-knex")(session)
 
-const usersRouter = require("../users/users-router.js");
-const authRouter = require('../auth/auth-router.js');
+const usersRouter = require("./users/users-router");
+const authRouter = require('./auth/auth-router.js');
 
 
 const server = express()
@@ -26,7 +26,7 @@ server.use(session({
 }))
 
 server.use("/api/users", usersRouter)
-server.use("/api/uth", authRouter)
+server.use("/api/auth", authRouter)
 
 server.use((err, req, res, next) => {
     console.log(err)
